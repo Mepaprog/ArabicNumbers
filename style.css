@@ -10,6 +10,7 @@ body{
     overflow: hidden;
     min-height: 100svh;
     max-height: 100svh;
+    text-align: center;
 }
 header{
     width: 100%;
