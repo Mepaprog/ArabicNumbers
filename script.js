@@ -3,13 +3,13 @@ const input = document.getElementById('input');
 const prevBtn = document.getElementById('prev');
 const nextBtn = document.getElementById('next');
 
-let currentStart = 1;
+let currentStart = 0;
 const pageSize = 100;
 
-const units = ['','wahid','ithnan','thalatha','arba\'a','khamsa','sitta','sab\'a','thamāniya','tis\'a'];
-const tens = ['','ashra','ishrun','thalathon','arba\'un','khamsun','sittun','sab\'un','thamaniyun','tis\'un'];
+const units = ['sifr','wahid','ithnan','thalatha','arba\'a','khamsa','sitta','sab\'a','thamāniya','tis\'a'];
+const tens = ['','ashra','ishrun','thalathun','arba\'un','khamsun','sittun','sab\'un','thamaniyun','tis\'un'];
 const teens = ['ashra','ahada ashar','ithna ashar','thalatha ashar','arba\'a ashar','khamsa ashar','sitta ashar','sab\'a ashar','thamāniya ashar','tis\'a ashar'];
-const hundreds = ['','mi’a','mi’atain','thalath mi’a','arba\' mi’a','khams mi’a','sitt mi’a','sab\' mi’a','thamani mi’a','tis\' mi’a'];
+const hundreds = ['','mi’a','mi’atain','thalatha mi’a','arba\'a mi’a','khamsa mi’a','sitta mi’a','sab\'a mi’a','thamaniya mi’a','tis\'a mi’a'];
 
 function getPronunciation(num){
     if(num < 10) return units[num];
@@ -27,7 +27,7 @@ function getPronunciation(num){
     if(num < 1000000){ // thousands
         let thousandsPart = Math.floor(num / 1000);
         let remainder = num % 1000;
-        let thousandsPron = thousandsPart === 1 ? 'alf' : getPronunciation(thousandsPart) + ' alaf';
+        let thousandsPron = thousandsPart === 1 ? 'alf' : getPronunciation(thousandsPart) + ' alf';
         return remainder === 0 ? thousandsPron : thousandsPron + ' wa ' + getPronunciation(remainder);
     }
     if(num < 1000000000){ // millions
@@ -39,7 +39,7 @@ function getPronunciation(num){
     if(num < 1000000000000){ // billions
         let billionsPart = Math.floor(num / 1000000000);
         let remainder = num % 1000000000;
-        let billionsPron = billionsPart === 1 ? 'milyar' : getPronunciation(billionsPart) + ' milyar';
+        let billionsPron = billionsPart === 1 ? 'bilyun' : getPronunciation(billionsPart) + ' bilyun';
         return remainder === 0 ? billionsPron : billionsPron + ' wa ' + getPronunciation(remainder);
     }
     if(num === 1000000000000) return 'trilyun'; // 1 trillion
