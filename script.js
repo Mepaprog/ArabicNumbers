@@ -13,44 +13,39 @@ const hundreds = ['','mi’a','mi’atain','thalath mi’a','arba\' mi’a','kha
 
 function getPronunciation(num){
     if(num < 10) return units[num];
-
-    if(num >= 10 && num < 20){
-        return teens[num-10];
-    }
-
+    if(num >= 10 && num < 20) return teens[num-10];
     if(num < 100){
         let u = num % 10;
         let t = Math.floor(num / 10);
-        if(u === 0) return tens[t];
-        return units[u] + ' wa ' + tens[t];
+        return u === 0 ? tens[t] : units[u] + ' wa ' + tens[t];
     }
-
     if(num < 1000){
         let h = Math.floor(num / 100);
         let remainder = num % 100;
-        if(remainder === 0) return hundreds[h];
-        return hundreds[h] + ' wa ' + getPronunciation(remainder);
+        return remainder === 0 ? hundreds[h] : hundreds[h] + ' wa ' + getPronunciation(remainder);
     }
-
-    if(num < 1000000){
+    if(num < 1000000){ // thousands
         let thousandsPart = Math.floor(num / 1000);
         let remainder = num % 1000;
-
-        let thousandsPron;
-        if(thousandsPart < 10){
-            thousandsPron = thousandsPart === 1 ? 'alf' : units[thousandsPart] + ' alaf';
-        } else {
-            thousandsPron = getPronunciation(thousandsPart) + ' alaf';
-        }
-
-        if(remainder === 0) return thousandsPron;
-        return thousandsPron + ' wa ' + getPronunciation(remainder);
+        let thousandsPron = thousandsPart === 1 ? 'alf' : getPronunciation(thousandsPart) + ' alaf';
+        return remainder === 0 ? thousandsPron : thousandsPron + ' wa ' + getPronunciation(remainder);
     }
-
-    if(num === 1000000) return 'milyun';
-
+    if(num < 1000000000){ // millions
+        let millionsPart = Math.floor(num / 1000000);
+        let remainder = num % 1000000;
+        let millionsPron = millionsPart === 1 ? 'milyun' : getPronunciation(millionsPart) + ' milyun';
+        return remainder === 0 ? millionsPron : millionsPron + ' wa ' + getPronunciation(remainder);
+    }
+    if(num < 1000000000000){ // billions
+        let billionsPart = Math.floor(num / 1000000000);
+        let remainder = num % 1000000000;
+        let billionsPron = billionsPart === 1 ? 'milyar' : getPronunciation(billionsPart) + ' milyar';
+        return remainder === 0 ? billionsPron : billionsPron + ' wa ' + getPronunciation(remainder);
+    }
+    if(num === 1000000000000) return 'trilyun'; // 1 trillion
     return num.toString(); // fallback
 }
+
 
 
 
