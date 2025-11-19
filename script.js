@@ -79,13 +79,13 @@ function renderPage(start){
 
 document.querySelector('.search button').addEventListener('click', () => {
     let num = parseInt(input.value);
-    if(isNaN(num) || num < 1) return;
+    if(isNaN(num) || num < 0) return;
     currentStart = num;
     renderPage(currentStart);
 });
 
 prevBtn.addEventListener('click', () => {
-    if(currentStart - pageSize >= 1){
+    if(currentStart - pageSize >= 0){
         currentStart -= pageSize;
         renderPage(currentStart);
     }
