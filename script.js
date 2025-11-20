@@ -6,14 +6,14 @@ const nextBtn = document.getElementById('next');
 let currentStart = 0;
 const pageSize = 100;
 
-const units = ['sifr','wahid','ithnan','thalatha','arba\'a','khamsa','sitta','sab\'a','thamāniya','tis\'a'];
-const tens = ['','ashra','ishrun','thalathun','arba\'un','khamsun','sittun','sab\'un','thamaniyun','tis\'un'];
-const teens = ['ashra','ahada ashar','ithna ashar','thalatha ashar','arba\'a ashar','khamsa ashar','sitta ashar','sab\'a ashar','thamāniya ashar','tis\'a ashar'];
-const hundreds = ['','mi’a','mi’atain','thalatha mi’a','arba\'a mi’a','khamsa mi’a','sitta mi’a','sab\'a mi’a','thamaniya mi’a','tis\'a mi’a'];
-
 function getPronunciation(num){
+    const units = ['sifr','wahid','ithnan','thalatha','arba\'a','khamsa','sitta','sab\'a','thamāniya','tis\'a'];
+    const teens = ['ashra','ahada ashar','ithna ashar','thalatha ashar','arba\'a ashar','khamsa ashar','sitta ashar','sab\'a ashar','thamāniya ashar','tis\'a ashar'];
+    const tens = ['','ashra','ishrun','thalathun','arba\'un','khamsun','sittun','sab\'un','thamaniyun','tis\'un'];
+    const hundreds = ['', 'mi’a','mi’atain','thalatha mi’a','arba\'a mi’a','khamsa mi’a','sitta mi’a','sab\'a mi’a','thamaniya mi’a','tis\'a mi’a'];
+
     if(num < 10) return units[num];
-    if(num >= 10 && num < 20) return teens[num-10];
+    if(num < 20) return teens[num-10];
     if(num < 100){
         let u = num % 10;
         let t = Math.floor(num / 10);
@@ -21,32 +21,43 @@ function getPronunciation(num){
     }
     if(num < 1000){
         let h = Math.floor(num / 100);
-        let remainder = num % 100;
-        return remainder === 0 ? hundreds[h] : hundreds[h] + ' wa ' + getPronunciation(remainder);
+        let r = num % 100;
+        return r === 0 ? hundreds[h] : hundreds[h] + ' wa ' + getPronunciation(r);
     }
-    if(num < 1000000){ // thousands
-        let thousandsPart = Math.floor(num / 1000);
-        let remainder = num % 1000;
-        let thousandsPron = thousandsPart === 1 ? 'alf' : getPronunciation(thousandsPart) + ' alf';
-        return remainder === 0 ? thousandsPron : thousandsPron + ' wa ' + getPronunciation(remainder);
+    if(num < 1000000){ // Thousands
+        let t = Math.floor(num / 1000);
+        let r = num % 1000;
+        let thousandsPron =
+            t === 1 ? 'alf' :
+            t === 2 ? 'alfain' :
+            t <= 10 ? getPronunciation(t) + ' alaf' :
+            getPronunciation(t) + ' alf';
+        return r === 0 ? thousandsPron : thousandsPron + ' wa ' + getPronunciation(r);
     }
-    if(num < 1000000000){ // millions
-        let millionsPart = Math.floor(num / 1000000);
-        let remainder = num % 1000000;
-        let millionsPron = millionsPart === 1 ? 'milyun' : getPronunciation(millionsPart) + ' milyun';
-        return remainder === 0 ? millionsPron : millionsPron + ' wa ' + getPronunciation(remainder);
+    if(num < 1000000000){ // Millions
+        let m = Math.floor(num / 1000000);
+        let r = num % 1000000;
+        let millionsPron =
+            m === 1 ? 'milyun' :
+            m === 2 ? 'milyunan' :
+            m <= 10 ? getPronunciation(m) + ' malaayin' :
+            getPronunciation(m) + ' milyun';
+        return r === 0 ? millionsPron : millionsPron + ' wa ' + getPronunciation(r);
     }
-    if(num < 1000000000000){ // billions
-        let billionsPart = Math.floor(num / 1000000000);
-        let remainder = num % 1000000000;
-        let billionsPron = billionsPart === 1 ? 'bilyun' : getPronunciation(billionsPart) + ' bilyun';
-        return remainder === 0 ? billionsPron : billionsPron + ' wa ' + getPronunciation(remainder);
+    if(num < 1000000000000){ // Billions
+        let b = Math.floor(num / 1000000000);
+        let r = num % 1000000000;
+        let billionsPron =
+            b === 1 ? 'bilyun' :
+            b === 2 ? 'bilyunan' :
+            b <= 10 ? getPronunciation(b) + ' bilaayeen' :
+            getPronunciation(b) + ' bilyun';
+        return r === 0 ? billionsPron : billionsPron + ' wa ' + getPronunciation(r);
     }
-    if(num === 1000000000000) return 'trilyun'; // 1 trillion
+    if(num === 1000000000000) return 'trilyun';
+    
     return num.toString(); // fallback
 }
-
-
 
 
 function toArabicNumber(num) {
