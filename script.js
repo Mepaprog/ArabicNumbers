@@ -89,8 +89,8 @@ function renderPage(start){
 
 document.querySelector('.search button').addEventListener('click', () => {
     let num = parseInt(input.value);
-    if(isNaN(num) || num < 0) return;
     currentStart = num;
+    if(isNaN(num) || num < 0) currentStart = 0;
     renderPage(currentStart);
 });
 
