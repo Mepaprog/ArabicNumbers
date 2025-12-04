@@ -7,7 +7,7 @@ let currentStart = 0;
 const pageSize = 100;
 
 function getPronunciation(num) {
-    const units = ['', 'Wahid', 'ithnan', 'thalatha', "Arba'a", 'khamsa', 'sitta', "sab'a", 'thamāniya', "Tis'a"];
+    const units = ['', 'Wahid', 'ithnan', 'thalatha', "Arba'a", 'khamsa', 'sitta', "sab'a", 'thamāniya', "Tis'a", "ashara"];
     const teens = ['', 'ihda ashar', 'ithna ashar', 'thalatha ashar', "arba'a ashar", 'khamsa ashar', 'sitta ashar', "sab'a ashar", 'thamāniya ashar', "tis'a ashar"];
     const tens = ['', '', 'ishroon', 'thalaton', 'arba\'oon', 'khamsun', 'sittun', 'sab\'un', 'thamanun', 'tis\'un'];
     const hundreds = ['', 'mia', 'miatan', 'thalatha mia', 'arba\'a mia', 'khamsa mia', 'sitta mia', 'sab\'a mia', 'thamāniya mia', 'tis\'a mia'];
