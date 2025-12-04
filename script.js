@@ -7,56 +7,61 @@ let currentStart = 0;
 const pageSize = 100;
 
 function getPronunciation(num) {
-    const units = ['sifr','wahid','ithnan','thalatha','arba\'a','khamsa','sitta','sab\'a','thamāniya','tis\'a'];
-    const teens = ['ihda ashar','ithna ashar','thalatha ashar','arba\'a ashar','khamsa ashar','sitta ashar','sab\'a ashar','thamāniya ashar','tis\'a ashar'];
-    const tens = ['','ishroon','thalatoon','arba\'oon','khamsun','sittun','sab\'un','thamanun','tis\'un'];
-    const hundreds = ['','mia','miatan','thalatha mia','arba\'a mia','khamsa mia','sitta mia','sab\'a mia','thamāniya mia','tis\'a mia'];
-
-    if (num < 10) return units[num];
-    if (num < 20) return teens[num - 10];
-    if (num < 100) {
+    const units = ['', 'Wahid', 'ithnan', 'thalatha', "Arba'a", 'khamsa', 'sitta', "sab'a", 'thamāniya', "Tis'a"];
+    const teens = ['', 'ihda ashar', 'ithna ashar', 'thalatha ashar', "arba'a ashar", 'khamsa ashar', 'sitta ashar', "sab'a ashar", 'thamāniya ashar', "tis'a ashar"];
+    const tens = ['', '', 'ishroon', 'thalaton', 'arba\'oon', 'khamsun', 'sittun', 'sab\'un', 'thamanun', 'tis\'un'];
+    const hundreds = ['', 'mia', 'miatan', 'thalatha mia', 'arba\'a mia', 'khamsa mia', 'sitta mia', 'sab\'a mia', 'thamāniya mia', 'tis\'a mia'];
+  
+    if (num === 0) return 'sifr';
+  
+    // Billion
+    if (num >= 1_000_000_000) {
+        let billions = Math.floor(num / 1_000_000_000);
+        let rest = num % 1_000_000_000;
+        let billionWord = billions === 1 ? 'milyar' : billions === 2 ? 'milyaran' : getPronunciation(billions) + ' milyar';
+        return rest ? billionWord + ' ' + getPronunciation(rest) : billionWord;
+    }
+  
+    // Million
+    if (num >= 1_000_000) {
+        let millions = Math.floor(num / 1_000_000);
+        let rest = num % 1_000_000;
+        let millionWord = millions === 1 ? 'milyon' : millions === 2 ? 'milyan' : getPronunciation(millions) + ' milyun';
+        return rest ? millionWord + ' ' + getPronunciation(rest) : millionWord;
+    }
+  
+    // Thousand
+    if (num >= 1000) {
+        let thousands = Math.floor(num / 1000);
+        let rest = num % 1000;
+        let thousandWord = thousands === 1 ? 'alf' : thousands === 2 ? 'alfain' : getPronunciation(thousands) + ' alaf';
+        return rest ? thousandWord + ' ' + getPronunciation(rest) : thousandWord;
+    }
+  
+    // Hundreds
+    if (num >= 100) {
+        let h = Math.floor(num / 100);
+        let rest = num % 100;
+        let hWord = hundreds[h];
+        return rest ? hWord + ' ' + getPronunciation(rest) : hWord;
+    }
+  
+    // Tens
+    if (num >= 20) {
         let t = Math.floor(num / 10);
         let u = num % 10;
-        return u === 0 ? tens[t] : units[u] + ' wa ' + tens[t];
+        return u ? units[u] + ' wa ' + tens[t] : tens[t];
     }
-    if (num < 1000) {
-        let h = Math.floor(num / 100);
-        let r = num % 100;
-        return r === 0 ? hundreds[h] : hundreds[h] + ' wa ' + getPronunciation(r);
+  
+    // Teens
+    if (num >= 11 && num <= 19) {
+        return teens[num - 10];
     }
-    if (num < 1000000) { // Thousands
-        let t = Math.floor(num / 1000);
-        let r = num % 1000;
-        let thousandsPron =
-            t === 1 ? 'alf' :
-            t === 2 ? 'alfain' :
-            t <= 10 ? getPronunciation(t) + ' alaf' :
-            getPronunciation(t) + ' alf';
-        return r === 0 ? thousandsPron : thousandsPron + ' wa ' + getPronunciation(r);
-    }
-    if (num < 1000000000) { // Millions
-        let m = Math.floor(num / 1000000);
-        let r = num % 1000000;
-        let millionPron =
-            m === 1 ? 'milyon' :
-            m === 2 ? 'milyonan' :
-            m <= 10 ? getPronunciation(m) + ' milyun' :
-            getPronunciation(m) + ' milyun';
-        return r === 0 ? millionPron : millionPron + ' wa ' + getPronunciation(r);
-    }
-    if (num < 1000000000000) { // Billions
-        let b = Math.floor(num / 1000000000);
-        let r = num % 1000000000;
-        let billionPron =
-            b === 1 ? 'milyar' :
-            b === 2 ? 'milyaran' :
-            b <= 10 ? getPronunciation(b) + ' milyar' :
-            getPronunciation(b) + ' milyar';
-        return r === 0 ? billionPron : billionPron + ' wa ' + getPronunciation(r);
-    }
-    
-    return num.toString(); // fallback
+  
+    // Units
+    return units[num];
 }
+
 
 
 function toArabicNumber(num) {
