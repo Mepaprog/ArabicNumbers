@@ -6,25 +6,25 @@ const nextBtn = document.getElementById('next');
 let currentStart = 0;
 const pageSize = 100;
 
-function getPronunciation(num){
+function getPronunciation(num) {
     const units = ['sifr','wahid','ithnan','thalatha','arba\'a','khamsa','sitta','sab\'a','thamāniya','tis\'a'];
-    const teens = ['ashra','ahada ashar','ithna ashar','thalatha ashar','arba\'a ashar','khamsa ashar','sitta ashar','sab\'a ashar','thamāniya ashar','tis\'a ashar'];
-    const tens = ['','ashra','ishrun','thalathun','arba\'un','khamsun','sittun','sab\'un','thamaniyun','tis\'un'];
-    const hundreds = ['', 'mi’a','mi’atain','thalatha mi’a','arba\'a mi’a','khamsa mi’a','sitta mi’a','sab\'a mi’a','thamaniya mi’a','tis\'a mi’a'];
+    const teens = ['ihda ashar','ithna ashar','thalatha ashar','arba\'a ashar','khamsa ashar','sitta ashar','sab\'a ashar','thamāniya ashar','tis\'a ashar'];
+    const tens = ['','ishroon','thalatoon','arba\'oon','khamsun','sittun','sab\'un','thamanun','tis\'un'];
+    const hundreds = ['','mia','miatan','thalatha mia','arba\'a mia','khamsa mia','sitta mia','sab\'a mia','thamāniya mia','tis\'a mia'];
 
-    if(num < 10) return units[num];
-    if(num < 20) return teens[num-10];
-    if(num < 100){
-        let u = num % 10;
+    if (num < 10) return units[num];
+    if (num < 20) return teens[num - 10];
+    if (num < 100) {
         let t = Math.floor(num / 10);
+        let u = num % 10;
         return u === 0 ? tens[t] : units[u] + ' wa ' + tens[t];
     }
-    if(num < 1000){
+    if (num < 1000) {
         let h = Math.floor(num / 100);
         let r = num % 100;
         return r === 0 ? hundreds[h] : hundreds[h] + ' wa ' + getPronunciation(r);
     }
-    if(num < 1000000){ // Thousands
+    if (num < 1000000) { // Thousands
         let t = Math.floor(num / 1000);
         let r = num % 1000;
         let thousandsPron =
@@ -34,27 +34,26 @@ function getPronunciation(num){
             getPronunciation(t) + ' alf';
         return r === 0 ? thousandsPron : thousandsPron + ' wa ' + getPronunciation(r);
     }
-    if(num < 1000000000){ // Millions
+    if (num < 1000000000) { // Millions
         let m = Math.floor(num / 1000000);
         let r = num % 1000000;
-        let millionsPron =
-            m === 1 ? 'milyun' :
-            m === 2 ? 'milyunan' :
-            m <= 10 ? getPronunciation(m) + ' malaayin' :
+        let millionPron =
+            m === 1 ? 'milyon' :
+            m === 2 ? 'milyonan' :
+            m <= 10 ? getPronunciation(m) + ' milyun' :
             getPronunciation(m) + ' milyun';
-        return r === 0 ? millionsPron : millionsPron + ' wa ' + getPronunciation(r);
+        return r === 0 ? millionPron : millionPron + ' wa ' + getPronunciation(r);
     }
-    if(num < 1000000000000){ // Billions
+    if (num < 1000000000000) { // Billions
         let b = Math.floor(num / 1000000000);
         let r = num % 1000000000;
-        let billionsPron =
-            b === 1 ? 'bilyun' :
-            b === 2 ? 'bilyunan' :
-            b <= 10 ? getPronunciation(b) + ' bilaayeen' :
-            getPronunciation(b) + ' bilyun';
-        return r === 0 ? billionsPron : billionsPron + ' wa ' + getPronunciation(r);
+        let billionPron =
+            b === 1 ? 'milyar' :
+            b === 2 ? 'milyaran' :
+            b <= 10 ? getPronunciation(b) + ' milyar' :
+            getPronunciation(b) + ' milyar';
+        return r === 0 ? billionPron : billionPron + ' wa ' + getPronunciation(r);
     }
-    if(num === 1000000000000) return 'trilyun';
     
     return num.toString(); // fallback
 }
