@@ -43,7 +43,7 @@ function getPronunciation(num) {
         let h = Math.floor(num / 100);
         let rest = num % 100;
         let hWord = hundreds[h];
-        return rest ? hWord + ' ' + getPronunciation(rest) : hWord;
+        return rest ? hWord + ' wa ' + getPronunciation(rest) : hWord;
     }
   
     // Tens
