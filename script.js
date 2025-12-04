@@ -8,7 +8,7 @@ const pageSize = 100;
 
 function getPronunciation(num) {
     const units = ['', 'Wahid', 'ithnan', 'thalatha', "Arba'a", 'khamsa', 'sitta', "sab'a", 'thamāniya', "Tis'a", "ashara"];
-    const teens = ['', 'ihda ashar', 'ithna ashar', 'thalatha ashar', "arba'a ashar", 'khamsa ashar', 'sitta ashar', "sab'a ashar", 'thamāniya ashar', "tis'a ashar"];
+    const teens = ['', 'ahad ashar', 'ithna ashar', 'thalatha ashar', "arba'a ashar", 'khamsa ashar', 'sitta ashar', "sab'a ashar", 'thamāniya ashar', "tis'a ashar"];
     const tens = ['', '', 'ishroon', 'thalaton', 'arba\'oon', 'khamsun', 'sittun', 'sab\'un', 'thamanun', 'tis\'un'];
     const hundreds = ['', 'mia', 'miatan', 'thalatha mia', 'arba\'a mia', 'khamsa mia', 'sitta mia', 'sab\'a mia', 'thamāniya mia', 'tis\'a mia'];
   
@@ -19,7 +19,7 @@ function getPronunciation(num) {
         let billions = Math.floor(num / 1_000_000_000);
         let rest = num % 1_000_000_000;
         let billionWord = billions === 1 ? 'milyar' : billions === 2 ? 'milyaran' : getPronunciation(billions) + ' milyar';
-        return rest ? billionWord + ' ' + getPronunciation(rest) : billionWord;
+        return rest ? billionWord + ' wa ' + getPronunciation(rest) : billionWord;
     }
   
     // Million
@@ -27,7 +27,7 @@ function getPronunciation(num) {
         let millions = Math.floor(num / 1_000_000);
         let rest = num % 1_000_000;
         let millionWord = millions === 1 ? 'milyon' : millions === 2 ? 'milyan' : getPronunciation(millions) + ' milyun';
-        return rest ? millionWord + ' ' + getPronunciation(rest) : millionWord;
+        return rest ? millionWord + ' wa ' + getPronunciation(rest) : millionWord;
     }
   
     // Thousand
@@ -35,7 +35,7 @@ function getPronunciation(num) {
         let thousands = Math.floor(num / 1000);
         let rest = num % 1000;
         let thousandWord = thousands === 1 ? 'alf' : thousands === 2 ? 'alfain' : getPronunciation(thousands) + ' alaf';
-        return rest ? thousandWord + ' ' + getPronunciation(rest) : thousandWord;
+        return rest ? thousandWord + ' wa ' + getPronunciation(rest) : thousandWord;
     }
   
     // Hundreds
